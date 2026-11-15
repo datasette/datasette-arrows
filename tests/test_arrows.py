@@ -89,7 +89,7 @@ async def test_table_page(ds):
 
 @pytest.mark.asyncio
 async def test_stream_all_rows(ds):
-    response = await ds.client.get("/data/dogs.arrows?_stream=1")
+    response = await ds.client.get("/data/dogs.arrows?_stream=1&_size=10")
     reader = pa.ipc.open_stream(response.content)
     batches = list(reader)
     # One record batch per page
@@ -203,7 +203,7 @@ async def test_later_page_that_does_not_fit_fails(ds):
     # the float and string that follow cannot be represented. The stream
     # fails rather than returning an incomplete file that looks complete.
     with pytest.raises(ValueError, match="Column 'value' is int64"):
-        await ds.client.get("/data/mixed.arrows?_stream=1")
+        await ds.client.get("/data/mixed.arrows?_stream=1&_size=10")
 
 
 @pytest.mark.asyncio

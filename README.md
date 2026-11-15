@@ -22,9 +22,11 @@ This plugin adds a `.arrows` export format to every table, view, row and SQL que
 
 Like Datasette's CSV export, a table or view URL returns a single page of rows unless you add `?_stream=1`, which streams every row:
 
-    /database/table.arrows?_stream=1&_size=max
+    /database/table.arrows?_stream=1
 
-Rows are fetched and sent one page at a time, as one Arrow record batch per page, so a table of any size can be exported without loading it into memory. `_size=max` is optional: it fetches larger pages, resulting in fewer, larger record batches. Filters, sort order and `?_col=` options all apply to the export.
+Rows are fetched and sent one page at a time, as one Arrow record batch per page, so a table of any size can be exported without loading it into memory. Filters, sort order and `?_col=` options all apply to the export.
+
+In the "Export data" dialog the Arrow format is listed with TSV and CSV. Check "Include all rows" there to download every row.
 
 Datasette's [allow_stream](https://docs.datasette.io/en/latest/settings.html#allow-stream) and [max_stream_mb](https://docs.datasette.io/en/latest/settings.html#max-stream-mb) settings apply to these exports. Add `?_dl=1` to download the response as a file.
 
