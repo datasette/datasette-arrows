@@ -163,7 +163,9 @@ async def test_sql_query_mixed_types_become_strings(ds):
 
 @pytest.mark.asyncio
 async def test_sql_error(ds):
-    response = await ds.client.get("/data/-/query.arrows", params={"sql": "select nope"})
+    response = await ds.client.get(
+        "/data/-/query.arrows", params={"sql": "select nope"}
+    )
     assert response.status_code == 400
 
 

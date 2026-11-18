@@ -95,10 +95,7 @@ def split_labels(rows, columns, expanded_columns):
             [cell["value"] if isinstance(cell, dict) else cell for cell in cells]
         )
         values.append(
-            [
-                str(cell["label"]) if isinstance(cell, dict) else None
-                for cell in cells
-            ]
+            [str(cell["label"]) if isinstance(cell, dict) else None for cell in cells]
         )
     return names, values
 
@@ -116,7 +113,9 @@ async def declared_kinds(datasette, database, table):
     return kinds
 
 
-async def render_arrows(datasette, columns, rows, row_stream, database, table, page, error):
+async def render_arrows(
+    datasette, columns, rows, row_stream, database, table, page, error
+):
     if error:
         raise DatasetteError(error, title="Invalid SQL", status=400)
 
@@ -130,7 +129,9 @@ async def render_arrows(datasette, columns, rows, row_stream, database, table, p
         kind_for_values(values, declared.get(name))
         for name, values in zip(names, first_values)
     ]
-    schema = pa.schema([pa.field(name, ARROW_TYPES[kind]) for name, kind in zip(names, kinds)])
+    schema = pa.schema(
+        [pa.field(name, ARROW_TYPES[kind]) for name, kind in zip(names, kinds)]
+    )
 
     async def body():
         buffer = io.BytesIO()
