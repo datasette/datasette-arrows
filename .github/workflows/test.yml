@@ -22,8 +22,6 @@ jobs:
     - name: Install dependencies
       run: |
         pip install . --group dev
-        # Streaming output renderers are not yet in a Datasette release
-        pip install https://github.com/simonw/datasette/archive/refs/heads/main.zip
     - name: Run tests
       run: |
         if [ -d tests/ ]; then
